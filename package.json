@@ -23,6 +23,7 @@
   "homepage": "https://github.com/adriankott/react-schafold#readme",
   "dependencies": {
     "chalk": "^5.2.0",
-    "minimist": "^1.2.7"
+    "minimist": "^1.2.7",
+    "yarn": "^1.22.19"
   }
 }

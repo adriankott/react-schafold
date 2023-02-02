@@ -4,29 +4,37 @@ import fs from "fs";
 import chalk from "chalk";
 
 import minimist from "minimist";
-import {argsValidate, resolveTemplatePath, sanitize} from "../helpers/functions.js";
+import {argsValidate, createDirIfNotExists, resolveTemplatePath, sanitize} from "../helpers/functions.js";
+import {componentDefault} from "../templates/component.default.js";
+import {componentModuleScss} from "../templates/component.module.scss.js";
 
 
 // const reactTemplate = require('../helpers/template-react');
 
 const argv = minimist(process.argv.slice(2));
 const log = console.log;
-const
+let
     help = argv.help,
-    name = sanitize(argv.name),
+    name = argv.name,
     template = sanitize(argv.template),
     templatePath = resolveTemplatePath(argv.templatePath, process.env.PWD),
     css = (argv.css && argv.css.length) ? sanitize(argv.css) : argv.css;
+const pathSplit = name.split('/');
+name = pathSplit.pop();
+const path = pathSplit.join('/');
+if (path) {
+    createDirIfNotExists(path);
+}
 const
-    location = `.`,
+    location = path ? path : `.`,
     reactFileName = `${location}/${name}`;
 
-const DEFAULT_JS_EXTENSION = '.js';
-const DEFAULT_CSS_EXTENSION = '.css';
+const DEFAULT_JS_EXTENSION = '.tsx';
+const DEFAULT_CSS_EXTENSION = '.module.scss';
 
 if (!name) {
-    log(chalk.red('--name argument is mandatory!!!!'));
-    console.log(chalk.green(JSON.stringify(argv)))
+    log(chalk.red('--name argument is mandatory!!!! and must be a word found:'));
+    log(chalk.red(argv.name));
     process.exit(0);
 }
 
@@ -43,18 +51,17 @@ const initScaffold = () => {
     const cssFileName = ((css && css.length) ? css : name).toLowerCase();
     let templateOutput = '';
     try {
-        templateOutput = "";
-        reactTemplate(namePascalCase, template, templatePath, css ? cssFileName : '');
+        templateOutput = componentDefault(namePascalCase)
     } catch (e) {
         if (e.message.match(/\/\/ Template(.)+ was not found/)) {
             templateOutput = e.message;
         }
     }
 
-    createFile(`${name}${DEFAULT_JS_EXTENSION}`, templateOutput);
+    createFile(`${namePascalCase}${DEFAULT_JS_EXTENSION}`, templateOutput);
 
     if (css) {
-        createFile(`${cssFileName}${DEFAULT_CSS_EXTENSION}`, `.${name} { }`);
+        createFile(`${namePascalCase}${DEFAULT_CSS_EXTENSION}`, componentModuleScss());
     }
 };
 

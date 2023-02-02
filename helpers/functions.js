@@ -6,6 +6,8 @@
  *
  * @return {boolean} Description
  */
+import fs from "fs";
+
 export const argsValidate = (args, types) => {
     const validate = args.filter((arg, index) => typeof arg === types[index]);
     return args.length === validate.length;
@@ -42,3 +44,11 @@ export const resolveTemplatePath = (templatePath, processPWD) => {
 
     return path;
 };
+
+
+export const createDirIfNotExists = (dir) => {
+
+    if (!fs.existsSync(dir)){
+        fs.mkdirSync(dir, { recursive: true });
+    }
+}
