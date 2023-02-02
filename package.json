@@ -1,0 +1,19 @@
+{
+  "name": "react-schafold",
+  "version": "1.0.0",
+  "description": "Set of CLI commands to create react building blocks in a project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adriankott/react-schafold.git"
+  },
+  "author": "Adrian Kott",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adriankott/react-schafold/issues"
+  },
+  "homepage": "https://github.com/adriankott/react-schafold#readme"
+}
