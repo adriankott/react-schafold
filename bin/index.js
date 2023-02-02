@@ -13,10 +13,7 @@ import {componentModuleScss} from "../templates/component.module.scss.js";
 
 const argv = minimist(process.argv.slice(2));
 const log = console.log;
-let
-    help = argv.help,
-    name = argv.name,
-    template = sanitize(argv.template),
+let help = argv.help, name = argv.name, template = sanitize(argv.template),
     templatePath = resolveTemplatePath(argv.templatePath, process.env.PWD),
     css = (argv.css && argv.css.length) ? sanitize(argv.css) : argv.css;
 const pathSplit = name.split('/');
@@ -25,9 +22,7 @@ const path = pathSplit.join('/');
 if (path) {
     createDirIfNotExists(path);
 }
-const
-    location = path ? path : `.`,
-    reactFileName = `${location}/${name}`;
+const location = path ? path : `.`, reactFileName = `${location}/${name}`;
 
 const DEFAULT_JS_EXTENSION = '.tsx';
 const DEFAULT_CSS_EXTENSION = '.module.scss';
@@ -59,10 +54,7 @@ const initScaffold = () => {
     }
 
     createFile(`${namePascalCase}${DEFAULT_JS_EXTENSION}`, templateOutput);
-
-    if (css) {
-        createFile(`${namePascalCase}${DEFAULT_CSS_EXTENSION}`, componentModuleScss());
-    }
+    createFile(`${namePascalCase}${DEFAULT_CSS_EXTENSION}`, componentModuleScss());
 };
 
 const createFile = (fileName, content) => {
@@ -76,9 +68,7 @@ const createFile = (fileName, content) => {
 };
 
 const pascalCase = (string) => {
-    return string.replace(/(\b[a-zA-Z])/g, (g) => (
-        g.toUpperCase()
-    )).replace(/(\b[-])/g, '');
+    return string.replace(/(\b[a-zA-Z])/g, (g) => (g.toUpperCase())).replace(/(\b[-])/g, '');
 };
 //
 // if (help) {
