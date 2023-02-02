@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "Set of CLI commands to create react building blocks in a project",
   "main": "bin/index.js",
+  "type": "module",
   "bin": {
     "react-schafold": "./bin/index.js"
   },
   "scripts": {
+    "start": "node ./bin/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/adriankott/react-schafold/issues"
   },
-  "homepage": "https://github.com/adriankott/react-schafold#readme"
+  "homepage": "https://github.com/adriankott/react-schafold#readme",
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "minimist": "^1.2.7"
+  }
 }
